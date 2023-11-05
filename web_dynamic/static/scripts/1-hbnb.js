@@ -1,30 +1,17 @@
-// $(document).ready(function () {
-//   const amenities = []
-//   on('click', function () {
-//     amenities.push($('input').attr('data-id'));
-//   });
-// });
-
-
 $(document).ready(function () {
-  const amenities = {};
-
-  $('input[type=checkbox]').change(function () {
-      const amenity_id = $(this).data('name');
-
-      if ($(this).is(':checked')) {
-          amenities[amenity_id] = true;
-      } else {
-          delete amenities[amenity_id];
-      }
-
-      let amenitiesList = '';
-
-      for (const id in amenities) {
-          if (amenitiesList === '') amenitiesList += id;
-          else amenitiesList += ', ' + id;
-      }
-
-      $('div.amenities h4').text(amenitiesList);
+    const checked = {};
+    $('input[type=checkbox').change(
+      function () {
+        if (this.checked) {
+          checked[($(this).attr('data-id'))] = $(this).attr('data-name');
+        } else {
+          delete checked[($(this).attr('data-id'))];
+        }
+        if (Object.keys(checked).length === 0) {
+          $('.amenities h4').html('&nbsp;');
+        } else {
+          console.log(checked);
+          $('.amenities h4').text(Object.values(checked));
+        }
+      });
   });
-});
